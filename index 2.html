@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>淘寶代購填寫表單</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1.5em;
+      background-color: #f8f8f8;
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1em;
+      margin-top: 0.3em;
+    }
+    button {
+      margin-top: 1.5em;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>淘寶代購填寫表單</h2>
+  <form action="https://n8n-railway-production-8f0f.up.railway.app/webhook/zabtdjwWN4xKN87g/webhook/taobao2" method="POST">
+    <label for="sharedText">貼上淘寶手機分享文字：</label>
+    <textarea name="sharedText" rows="5" required></textarea>
+
+    <label for="spec">規格／尺寸：</label>
+    <input type="text" name="spec" required />
+
+    <label for="qty">數量：</label>
+    <input type="number" name="qty" min="1" value="1" required />
+
+    <button type="submit">送出</button>
+  </form>
+</body>
+</html>
