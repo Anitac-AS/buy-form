@@ -30,11 +30,16 @@
       border: none;
       border-radius: 6px;
     }
+    #message {
+      margin-top: 1.5em;
+      font-weight: bold;
+      color: green;
+    }
   </style>
 </head>
 <body>
   <h2>淘寶代購填寫表單</h2>
-  <form action="https://n8n-railway-production-8f0f.up.railway.app/webhook/zabtdjwWN4xKN87g/webhook/taobao2" method="POST">
+  <form id="taobaoForm">
     <label for="sharedText">貼上淘寶手機分享文字：</label>
     <textarea name="sharedText" rows="5" required></textarea>
 
@@ -45,6 +50,41 @@
     <input type="number" name="qty" min="1" value="1" required />
 
     <button type="submit">送出</button>
+    <div id="message"></div>
   </form>
+
+  <script>
+    const form = document.getElementById("taobaoForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch("https://n8n-railway-production-8f0f.up.railway.app/webhook/zabtdjwWN4xKN87g/webhook/taobao2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("送出失敗");
+        return res.json();
+      })
+      .then(result => {
+        message.textContent = "✅ 資料寫入成功！3秒後返回填寫畫面…";
+        setTimeout(() => {
+          message.textContent = "";
+          form.reset();
+        }, 3000);
+      })
+      .catch(err => {
+        message.textContent = "❌ 發生錯誤，請稍後再試";
+        message.style.color = "red";
+      });
+    });
+  </script>
 </body>
 </html>
